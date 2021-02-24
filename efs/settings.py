@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import django_heroku
 import datetime
 from pathlib import Path
 
@@ -27,7 +28,7 @@ SECRET_KEY = 'c2r%o^w5ni$#a&h73d+*nu4wxjbls25#xbzrk^pn68#=!b3w-*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'portfolio',
+    'django.contrib.postgres',
 
 ]
 
@@ -85,10 +87,13 @@ WSGI_APPLICATION = 'efs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'efs',
+        'USER': 'postgres',
+        'PASSWORD': 'chongchong1'
     }
 }
+
 
 
 # Password validation
@@ -156,3 +161,5 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+django_heroku.settings(locals())
